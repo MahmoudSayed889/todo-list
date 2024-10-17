@@ -1,0 +1,126 @@
+
+
+<div class="container py-4">
+
+    <div class=" text-center mb-4">
+        <h1><i class="fa-solid fa-list-check me-2 text-primary"></i> ToDo List App</h1>
+    </div>
+
+    <div class=" bg-body-secondary mb-3 py-3">
+        <div class="row justify-content-between w-100 m-auto">
+
+            <div class="col-md-5 col-7">
+                <input type="text" class=" form-control" placeholder="Search By Task Name" [(ngModel)]="searchTerm">
+            </div>
+
+            <div class="col-md-5 col-5 d-flex justify-content-end align-items-center">
+                <button class=" btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@fat">Add task</button>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+
+                    <form (ngSubmit)="add(addForm)" [formGroup]="addForm">
+
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">New task</h1>
+                            <button #btnClose type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" >
+
+                            
+
+                                <div class="mb-3">
+                                    <label for="recipient-name" class="col-form-label fw-medium">Task name:</label>
+                                    <input type="text" class="form-control" id="recipient-name" formControlName="taskName" [ngClass]="{'is-invalid': addForm.get('taskName')?.touched && addForm.get('taskName')?.errors}">
+
+                                    @if( addForm.get('taskName')?.touched && addForm.get('taskName')?.errors ) {
+
+                                        @if( addForm.get('taskName')?.getError('required') ) {
+                                            <div class=" text-danger fw-medium">
+                                                Task name is required
+                                            </div>
+                                        }
+                                        
+                                    }
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="message-text" class="col-form-label fw-medium">Task description:</label>
+                                    <textarea class="form-control" id="message-text" formControlName="taskDescription"></textarea>
+                                </div>
+
+                            
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" [disabled]="addForm.invalid"> Add </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+
+        @for (task of allTasks.reverse() | search:searchTerm ; track task.itemId) {
+
+            <div class="accordion-item">
+
+                <div class=" accordion-header bg-body-secondary d-flex justify-content-between align-items-center">
+    
+                    <div class=" d-flex justify-content-between align-items-center">
+                        <input (change)="completed($event, task)" class="form-check-input mx-2 mt-0" type="checkbox" id="checkboxNoLabel" [checked]="task.isCompleted">
+
+                        <h2 class=" h5 mb-0">{{task.taskName}}</h2>
+                    </div>
+    
+                    @if( task.isCompleted ) {
+                        <span class="badge text-bg-success">completed</span>
+                    }
+    
+                    <div class=" d-flex justify-content-between align-items-center">
+                        <button class=" btn text-danger" (click)="delete(task.itemId)"> <i class="fa-solid fa-trash"></i> </button>
+                        <a class="accordion-button collapsed w-auto bg-transparent" type="button" data-bs-toggle="collapse" href="#{{task.itemId}}" aria-expanded="false" aria-controls="flush-collapseOne"></a>
+                    </div>
+                    
+    
+                </div>
+              
+    
+              
+                <div id="{{task.itemId}}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">{{task.taskDescription}}</div>
+                </div>
+            </div>
+        } @empty {
+
+            <div class=" text-center bg-body-secondary py-3 fs-4">
+                There is no task with this name.
+            </div>
+        }
+
+        
+
+
+
+        
+    </div>
+</div>
+
+
+
+@if(isLoading) {
+
+    <app-loading-screen></app-loading-screen>
+}
