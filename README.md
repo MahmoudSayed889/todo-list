@@ -12,6 +12,7 @@ use `npm i` to install all dependencies
 & use `ng s -o` to run project on your pc
 
 ## API Integration
+Swagger UI
 https://freeapi.gerasim.in/index.html
 
 ## Libraries or frameworks
