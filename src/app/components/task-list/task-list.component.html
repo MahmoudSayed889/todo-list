@@ -73,7 +73,7 @@
 
     <div class="accordion accordion-flush" id="accordionFlushExample">
 
-        @for (task of allTasks.reverse() | search:searchTerm ; track task.itemId) {
+        @for (task of allTasks | search:searchTerm ; track task.itemId) {
 
             <div class="accordion-item">
 
@@ -106,7 +106,7 @@
         } @empty {
 
             <div class=" text-center bg-body-secondary py-3 fs-4">
-                There is no task with this name.
+                There are no tasks.
             </div>
         }
 
