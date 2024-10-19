@@ -1,6 +1,23 @@
-# TodoList
+### Hi there 👋
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
+## TodoList app
+
+This project was generated with 
+- [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
+- Node: 22.8.0
+- Package Manager: npm 10.8.2
+
+## Install dependencies and run project
+use `npm i` to install all dependencies
+& use `ng s -o` to run project on your pc
+
+## API Integration
+Swagger UI
+https://freeapi.gerasim.in/index.html
+
+## Libraries or frameworks
+- Bootstrap v5 Latest
+- Font Awesome v6 Latest
 
 ## Development server
 
